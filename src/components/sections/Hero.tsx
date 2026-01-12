@@ -73,9 +73,9 @@ export const Hero = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-10 border-t border-border/30"
           >
             {[
-              { value: "50+", label: "Projects Completed" },
-              { value: "30+", label: "Happy Clients" },
-              { value: "5+", label: "Years Experience" },
+              { value: "100+", label: "Projects Completed" },
+              { value: "70+", label: "Happy Clients" },
+              { value: "8+", label: "Years Experience" },
               { value: "100%", label: "Client Satisfaction" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
