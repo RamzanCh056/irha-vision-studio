@@ -21,12 +21,6 @@ const contactInfo = [
     value: "Connect with us",
     href: "https://www.linkedin.com/in/shireen-zainab1451/",
   },
-  {
-    icon: MapPin,
-    title: "Location",
-    value: "Pakistan",
-    href: null,
-  },
 ];
 
 export const Contact = () => {
