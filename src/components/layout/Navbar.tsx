@@ -14,6 +14,16 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const whatsappUrl = "https://wa.me/923116381451?text=" + encodeURIComponent("Hello! I'm interested in your services and would like to discuss my requirements.");
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.nav
@@ -25,7 +35,11 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3">
+          <a 
+            href="#home" 
+            onClick={(e) => handleNavClick(e, '#home')}
+            className="flex items-center gap-3"
+          >
             <img src={irhaLogo} alt="Irha Softs" className="h-10 w-auto" />
           </a>
 
@@ -35,14 +49,17 @@ export const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium"
               >
                 {link.name}
               </a>
             ))}
-            <Button variant="gradient" size="default">
-              Get Started
-            </Button>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <Button variant="gradient" size="default">
+                Get Started
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -68,15 +85,20 @@ export const Navbar = () => {
                   <a
                     key={link.name}
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => {
+                      handleNavClick(e, link.href);
+                      setIsOpen(false);
+                    }}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium py-2"
                   >
                     {link.name}
                   </a>
                 ))}
-                <Button variant="gradient" size="lg" className="mt-2">
-                  Get Started
-                </Button>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  <Button variant="gradient" size="lg" className="mt-2 w-full">
+                    Get Started
+                  </Button>
+                </a>
               </div>
             </motion.div>
           )}
