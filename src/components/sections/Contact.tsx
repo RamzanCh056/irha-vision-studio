@@ -1,18 +1,6 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, MessageCircle, Mail, MapPin, Phone } from "lucide-react";
+import { MessageCircle, Mail, MapPin, Phone, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { z } from "zod";
-
-const contactSchema = z.object({
-  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
-  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
-  subject: z.string().trim().min(1, "Subject is required").max(200, "Subject must be less than 200 characters"),
-  message: z.string().trim().min(1, "Message is required").max(2000, "Message must be less than 2000 characters"),
-});
 
 const contactInfo = [
   {
@@ -24,8 +12,14 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    value: "hello@irhasofts.com",
-    href: "mailto:hello@irhasofts.com",
+    value: "irhasofts@gmail.com",
+    href: "mailto:irhasofts@gmail.com",
+  },
+  {
+    icon: Linkedin,
+    title: "LinkedIn",
+    value: "Connect with us",
+    href: "https://www.linkedin.com/in/shireen-zainab1451/",
   },
   {
     icon: MapPin,
@@ -36,51 +30,6 @@ const contactInfo = [
 ];
 
 export const Contact = () => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const result = contactSchema.safeParse(formData);
-    
-    if (!result.success) {
-      const newErrors: Record<string, string> = {};
-      result.error.errors.forEach((error) => {
-        if (error.path[0]) {
-          newErrors[error.path[0] as string] = error.message;
-        }
-      });
-      setErrors(newErrors);
-      return;
-    }
-    
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
-    
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    setErrors({});
-  };
-
   const whatsappUrl = "https://wa.me/923116381451?text=" + encodeURIComponent("Hello! I'm interested in your services.");
 
   return (
@@ -105,84 +54,16 @@ export const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="p-8 rounded-3xl glass"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <Input
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="bg-muted/50 border-border/50 focus:border-purple h-12"
-                  />
-                  {errors.name && (
-                    <p className="text-sm text-destructive mt-1">{errors.name}</p>
-                  )}
-                </div>
-                <div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="bg-muted/50 border-border/50 focus:border-purple h-12"
-                  />
-                  {errors.email && (
-                    <p className="text-sm text-destructive mt-1">{errors.email}</p>
-                  )}
-                </div>
-              </div>
-              <div>
-                <Input
-                  name="subject"
-                  placeholder="Subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="bg-muted/50 border-border/50 focus:border-purple h-12"
-                />
-                {errors.subject && (
-                  <p className="text-sm text-destructive mt-1">{errors.subject}</p>
-                )}
-              </div>
-              <div>
-                <Textarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={5}
-                  className="bg-muted/50 border-border/50 focus:border-purple resize-none"
-                />
-                {errors.message && (
-                  <p className="text-sm text-destructive mt-1">{errors.message}</p>
-                )}
-              </div>
-              <Button variant="gradient" size="lg" className="w-full group">
-                Send Message
-                <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </form>
-          </motion.div>
-
+        <div className="max-w-2xl mx-auto">
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col justify-between"
+            className="space-y-6"
           >
-            <div className="space-y-6">
+            <div className="grid sm:grid-cols-2 gap-4">
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
@@ -198,6 +79,8 @@ export const Contact = () => {
                     {info.href ? (
                       <a
                         href={info.href}
+                        target={info.href.startsWith("http") ? "_blank" : undefined}
+                        rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         className="block font-medium hover:text-purple transition-colors"
                       >
                         {info.value}
@@ -215,7 +98,7 @@ export const Contact = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8"
+              className="block mt-8"
             >
               <Button
                 variant="whatsapp"

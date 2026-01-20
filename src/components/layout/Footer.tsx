@@ -1,13 +1,10 @@
 import { motion } from "framer-motion";
-import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
 import irhaLogo from "@/assets/irha-logo.png";
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Github, href: "#", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/shireen-zainab1451/", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:irhasofts@gmail.com", label: "Email" },
 ];
 
 const footerLinks = {
